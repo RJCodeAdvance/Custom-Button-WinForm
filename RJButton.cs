@@ -35,10 +35,8 @@ namespace CustomControls.RJControls
         {
             get { return borderRadius; }
             set
-            {
-                if (value <= this.Height)
-                    borderRadius = value;
-                else borderRadius = this.Height;
+            {                
+                borderRadius = value;                
                 this.Invalidate();
             }
         }
