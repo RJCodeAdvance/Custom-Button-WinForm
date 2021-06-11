@@ -15,7 +15,7 @@ namespace CustomControls.RJControls
     {
         //Fields
         private int borderSize = 0;
-        private int borderRadius = 40;
+        private int borderRadius = 20;
         private Color borderColor = Color.PaleVioletRed;
 
         //Properties
