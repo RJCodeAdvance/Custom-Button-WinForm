@@ -15,7 +15,7 @@ namespace CustomControls.RJControls
     {
         //Fields
         private int borderSize = 0;
-        private int borderRadius = 20;
+        private int borderRadius = 0;
         private Color borderColor = Color.PaleVioletRed;
 
         //Properties
@@ -35,8 +35,8 @@ namespace CustomControls.RJControls
         {
             get { return borderRadius; }
             set
-            {                
-                borderRadius = value;                
+            {
+                borderRadius = value;
                 this.Invalidate();
             }
         }
@@ -51,6 +51,7 @@ namespace CustomControls.RJControls
                 this.Invalidate();
             }
         }
+
         [Category("RJ Code Advance")]
         public Color BackgroundColor
         {
@@ -77,7 +78,7 @@ namespace CustomControls.RJControls
         }
 
         //Methods
-        private GraphicsPath GetFigurePath(Rectangle rect, float radius)
+        private GraphicsPath GetFigurePath(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
             float curveSize = radius * 2F;
@@ -94,7 +95,7 @@ namespace CustomControls.RJControls
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);
-            pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+           
 
             Rectangle rectSurface = this.ClientRectangle;
             Rectangle rectBorder = Rectangle.Inflate(rectSurface, -borderSize, -borderSize);
@@ -109,6 +110,7 @@ namespace CustomControls.RJControls
                 using (Pen penSurface = new Pen(this.Parent.BackColor, smoothSize))
                 using (Pen penBorder = new Pen(borderColor, borderSize))
                 {
+                    pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                     //Button surface
                     this.Region = new Region(pathSurface);
                     //Draw surface border for HD result
@@ -122,6 +124,7 @@ namespace CustomControls.RJControls
             }
             else //Normal button
             {
+                pevent.Graphics.SmoothingMode = SmoothingMode.None;
                 //Button surface
                 this.Region = new Region(rectSurface);
                 //Button border
@@ -145,7 +148,6 @@ namespace CustomControls.RJControls
         {
             this.Invalidate();
         }
-
         private void Button_Resize(object sender, EventArgs e)
         {
             if (borderRadius > this.Height)
